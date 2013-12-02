@@ -14,7 +14,8 @@ films.each do |film|
     
     shedule_title = []
     film.search(".//span[@id='msg_rpice']").each do |time|
-        shedule_title << "#{time.children[0].text} #{time.children[1].children[2].text}"
+        #shedule_title << "#{time.children[0].text} #{time.children[1].children[2].text}"
+        shedule_title << "#{time.children[0].text}"
     end
     shedule.merge!({title => shedule_title})
 end
