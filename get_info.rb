@@ -7,23 +7,18 @@
 
 agent = Mechanize.new
 
-items = agent.get('http://www.horizont-cinema.ru').search(".//div[@class='af_category_item']")
+films = agent.get('http://www.horizont-cinema.ru').search(".//div[@class='af_category_item']")
 
 shedule = {}
 
-items.each do |item|
-    title = item.search(".//div[@class='event_name']").children.children.children.text
+films.each do |film|
+    title = film.search(".//div[@class='event_name']").children.children.children.text
     
-    timetable = item.search(".//span[@id='msg_rpice']")
-
-    shedule_title = [] 
-    timetable.each do |row|
-        time = row.children[0].text
-        price = row.children[1].children[2].text
-        shedule_title << "#{time} #{price}"
+    shedule_title = []
+    film.search(".//span[@id='msg_rpice']").each do |timetable_item|
+        shedule_title << "#{timetable_item.children[0].text} #{timetable_item.children[1].children[2].text}"
     end
     shedule.merge!({title => shedule_title})
 end
 
 shedule
-    
