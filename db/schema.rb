@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20131202134344) do
   end
 
   create_table "seances", force: true do |t|
+    t.integer  "film_id"
     t.string   "begin"
     t.string   "datetime"
     t.datetime "created_at"

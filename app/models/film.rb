@@ -1,3 +1,3 @@
 class Film < ActiveRecord::Base
-     belongs_to :seance
+    has_many :seances, dependent: :destroy
 end
