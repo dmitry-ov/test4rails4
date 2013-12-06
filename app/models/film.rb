@@ -1,7 +1,8 @@
 class Film < ActiveRecord::Base
     has_many :seances, dependent: :destroy
 
-    def get_info
+    def self.tabletime_update
+        Film.all.each {|e| e.delete}
         get_from_gorizont
         get_from_kado
     end
@@ -39,6 +40,7 @@ class Film < ActiveRecord::Base
             end
             shedule.merge!({title => shedules})
         end
+        shedule.merge!({ :cinema => :kado}) # допишем имя кинотеатра 
 
         self.push_to_base(shedule)
     end
@@ -59,9 +61,11 @@ class Film < ActiveRecord::Base
                 #shedule_title << "#{time.children[0].text} #{time.children[1].children[2].text}"
                 shedule_title << "#{time.children[0].text}"
             end
-
+            title[0,2] = '' # удаляем из названия нумерацию и 1 точку  
             shedule.merge!({title => shedule_title})
         end
+        shedule.merge!({ :cinema => :gorizont}) # допишем имя кинотеатра 
+        
         self.push_to_base(shedule)
     end
 

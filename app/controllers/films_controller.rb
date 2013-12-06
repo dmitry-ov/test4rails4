@@ -4,6 +4,7 @@ class FilmsController < ApplicationController
   # GET /films
   # GET /films.json
   def index
+    Film.tabletime_update
     @films = Film.all
   end
 
