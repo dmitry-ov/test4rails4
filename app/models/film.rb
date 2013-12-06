@@ -19,7 +19,7 @@ class Film < ActiveRecord::Base
             shedule.merge!({title => shedules})
         end
 
-        shedule
+        self.push_to_base(shedule)
     end
 
 
@@ -41,7 +41,22 @@ class Film < ActiveRecord::Base
 
             shedule.merge!({title => shedule_title})
         end
-        shedule
+        self.push_to_base(shedule)
+    end
+
+
+    def self.push_to_base shedule
+        shedule.each_key do |key|
+            film = Film.new(title: key)
+            film.save
+            
+            seances = shedule[key]
+            seances.each  do |s|
+                seance = Seance.new(begin_at: s) 
+                seance.film = film
+                seance.save
+            end
+        end
     end
 
 

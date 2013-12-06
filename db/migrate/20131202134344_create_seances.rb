@@ -4,7 +4,7 @@ class CreateSeances < ActiveRecord::Migration
       
       t.belongs_to :film
 
-      t.string :begin
+      t.string :begin_at
       t.string :datetime
 
       t.timestamps
