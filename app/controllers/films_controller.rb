@@ -4,8 +4,13 @@ class FilmsController < ApplicationController
   # GET /films
   # GET /films.json
   def index
-    Film.tabletime_update
+    #Film.tabletime_update
     @films = Film.all
+  end
+
+  def tabletime_update
+    Film.tabletime_update
+    redirect_to action: 'index'
   end
 
   # GET /films/1
@@ -44,7 +49,7 @@ class FilmsController < ApplicationController
     respond_to do |format|
       if @film.update(film_params)
         format.html { redirect_to @film, notice: 'Film was successfully updated.' }
-        format.json { head :no_content }
+       format.json { head :no_content }
       else
         format.html { render action: 'edit' }
         format.json { render json: @film.errors, status: :unprocessable_entity }

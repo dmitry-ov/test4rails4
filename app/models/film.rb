@@ -10,7 +10,11 @@ class Film < ActiveRecord::Base
 
     def self.push_to_base shedule
         shedule.each_key do |key|
-            film = Film.new(title: key)
+            if key == :cinema 
+                next
+            end
+
+            film = Film.new(title: key, cinema: shedule[:cinema])
             film.save
             
             seances = shedule[key]
@@ -40,7 +44,7 @@ class Film < ActiveRecord::Base
             end
             shedule.merge!({title => shedules})
         end
-        shedule.merge!({ :cinema => :kado}) # допишем имя кинотеатра 
+        shedule.merge!({ :cinema => "Кадо(Голд синема)"}) # допишем имя кинотеатра 
 
         self.push_to_base(shedule)
     end
@@ -64,7 +68,7 @@ class Film < ActiveRecord::Base
             title[0,2] = '' # удаляем из названия нумерацию и 1 точку  
             shedule.merge!({title => shedule_title})
         end
-        shedule.merge!({ :cinema => :gorizont}) # допишем имя кинотеатра 
+        shedule.merge!({ :cinema => "к-тр Горизонт"}) # допишем имя кинотеатра 
         
         self.push_to_base(shedule)
     end

@@ -1,20 +1,22 @@
-<h1>Фильмы сегодня</h1>
+<h1>Коломна. Фильмы сегодня</h1>
 
-<table>
+<table cellpadding="4"  border="1">
   <thead>
     <tr>
-      <th>Название</th>
-      <th>Расписание</th>
+      <th>Кинотеатр</th>
+      <th>Фильм</th>
+      <th>Сеансы</th>
     </tr>
   </thead>
 
   <tbody>
     <% @films.each do |film| %>
       <tr>
+        <td><%= film.cinema %></td>
         <td><%= film.title %></td>
         <td>
-          <% film.seances.each do |seance|%>
-             <%= seance.begin_at %> 
+          <% film.seances.each do |seance| %>
+             <%= seance.begin_at %>
           <% end %>
         </td>
       </tr>
@@ -23,3 +25,5 @@
 </table>
 
 <br>
+
+<%= link_to 'Обновить список фильмов', update_path %>
