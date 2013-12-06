@@ -1,12 +1,10 @@
-<h1>Listing films</h1>
+<h1>Фильмы сегодня</h1>
 
 <table>
   <thead>
     <tr>
-      <th>Title</th>
-      <th></th>
-      <th></th>
-      <th></th>
+      <th>Название</th>
+      <th>Расписание</th>
     </tr>
   </thead>
 
@@ -14,14 +12,14 @@
     <% @films.each do |film| %>
       <tr>
         <td><%= film.title %></td>
-        <td><%= link_to 'Show', film %></td>
-        <td><%= link_to 'Edit', edit_film_path(film) %></td>
-        <td><%= link_to 'Destroy', film, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <% film.seances.each do |seance|%>
+             <%= seance.begin_at %> 
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
-<%= link_to 'New Film', new_film_path %>
